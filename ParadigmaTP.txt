@@ -1,0 +1,72 @@
+@startuml
+
+skin rose
+class GestorLogistico{
+ciudades
+tramosTierra
+tramosRipio
+tramosAsfalto
+agregarCiudad:unaCiudad()
+agregarTramoTierraConecta:codigo1 con:codigo2 id:identificador()
+agregarTramoRipioConecta:codigo1 con:codigo2 id:identificador()
+agregarTramoAsfaltoConecta:codigo1 con:codigo2 id:identificador()
+establecerEstadoClima: unClima cp:codigo()
+ciudadesVecinas:codigo()
+ciudadesSinAsfalto()
+ciudadMasCalida()
+tramosTransitablesDesde: codigo()
+rutaTransitableDesde:codigo1 hasta:codigo2()
+
+}
+class Tramo{
+ciudadOrigen
+ciudadDestino
+codigo
+newConecta:ciudad1 con:ciudad2()
+conecta:codigo()
+transitable()
+}
+class Ciudad{
+nombre
+codigo
+estadoClima
+new:nombre cp:codigo()
+estadoClima:unEstadoClima()
+climaPermiteTransitarRipio()
+climaPermiteTransitarAsfalto()
+climaPermiteTransitarTierra()
+}
+class EstadoClima{
+grados
+newTemperatura:grados()
+permiteTransitarRipio()
+permiteTransitarAsfalto()
+permiteTransitarTierra()
+}
+
+class TramoAsfaltado extends Tramo{}
+class TramoRipio extends Tramo{}
+class TramoTierra extends Tramo{}
+
+class ClimaLluvioso extends EstadoClima{
+mM
+newMm:milimentros temperatura:grados()
+}
+class ClimaTormentoso extends EstadoClima{
+velocidadViento
+newViento:velocidad temperatura:grados()
+}
+class ClimaOptimo extends EstadoClima{}
+class ClimaNevadaIntensa extends EstadoClima{
+cmNieve
+newNieve:centimentros temperatura:grados()
+}
+
+GestorLogistico -- Tramo
+GestorLogistico -- Ciudad
+Ciudad -- EstadoClima
+Ciudad -- Tramo
+Ciudad -- Tramo
+
+@enduml
+
